@@ -8,6 +8,10 @@
 
 #import <UIKit/UIKit.h>
 
+@interface CoreTextView : UIView
+
+@end
+
 @interface ViewController : UIViewController
 
 @end

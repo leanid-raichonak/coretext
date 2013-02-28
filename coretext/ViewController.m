@@ -7,6 +7,33 @@
 //
 
 #import "ViewController.h"
+#import <CoreText/CoreText.h>
+
+@implementation CoreTextView
+
+- (id)initWithFrame:(CGRect)frame {
+    
+    if ((self = [super initWithFrame:frame])) {
+        
+    }
+    return self;
+}
+
+- (void)drawRect:(CGRect)rect {
+    
+    NSDictionary *attributes = @{[UIFont systemFontOfSize:16] : (NSString *)kCTFontAttributeName};
+    NSAttributedString *attributedString = [[NSAttributedString alloc] initWithString:@"Hello" attributes:attributes];
+    
+    CTFramesetterRef framesetter = CTFramesetterCreateWithAttributedString((__bridge CFAttributedStringRef)(attributedString));
+    
+    CGPathRef path = CGPathCreateWithRect(self.frame, NULL);
+    CTFrameRef textFrame = CTFramesetterCreateFrame(framesetter, CFRangeMake(0, attributedString.length), path, NULL);
+    CFRelease(path);
+    
+    CTFrameDraw(textFrame, UIGraphicsGetCurrentContext());
+}
+
+@end
 
 @interface ViewController ()
 
